@@ -1,1 +1,5 @@
-lostgithub.io
+# If using command line:
+echo "lostgithub.io" > CNAME
+git add CNAME
+git commit -m "Add CNAME file"
+git push
