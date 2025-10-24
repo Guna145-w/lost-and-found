@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gitam University - Lost & Found</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #ef4444;
+            --light: #f8fafc;
+            --success: #10b981;
+            --dark: #1e293b;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: #334155;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 16px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+        }
+
+        .university-info {
+            text-align: right;
+        }
+
+        .university-info h2 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .university-info p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Page Styles */
+        .page {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .page-content {
+            padding: 40px 0;
+        }
+
+        .page-title {
+            margin-bottom: 30px;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .login-container::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.05)" width="50" height="50"/></svg>');
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s;
+        }
+
+        .login-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .login-logo {
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-image {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+        }
+
+        .logo-image i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .login-logo h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .login-logo p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .login-form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .login-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .lost-btn {
+            background: var(--accent);
+            color: white;
+        }
+
+        .found-btn {
+            background: var(--success);
+            color: white;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .option-btn i {
+            font-size: 24px;
+        }
+
+        .btn-text {
+            text-align: left;
+        }
+
+        .btn-text small {
+            display: block;
+            font-size: 12px;
+            font-weight: normal;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .security-notice {
+            margin-top: 25px;
+            padding: 15px;
+            background: #fef3c7;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #92400e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .security-notice i {
+            color: #d97706;
+            font-size: 18px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Lost & Found Pages Header */
+        .page-header {
+            background: var(--accent);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .found-header {
+            background: var(--success);
+        }
+
+        /* Items Grid */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .found-item {
+            border-left-color: var(--success);
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--dark);
+        }
+
+        .item-category {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .found-category {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .item-details p {
+            margin-bottom: 8px;
+            color: #64748b;
+        }
+
+        /* Report Forms */
+        .report-form {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .found-submit {
+            background: var(--success);
+        }
+
+        .submit-btn:hover {
+            background: #dc2626;
+        }
+
+        .found-submit:hover {
+            background: #0d9668;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            color: var(--success);
+        }
+
+        .error {
+            color: var(--accent);
+        }
+
+        .modal h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-size: 22px;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .modal-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            font-size: 16px;
+        }
+
+        .modal-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .university-info {
+                text-align: center;
+            }
+
+            .login-box {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .option-btn {
+                padding: 18px;
+                font-size: 16px;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Login Page -->
+    <div class="page active" id="loginPage">
+        <!-- Header -->
+        <header class="header">
+            <div class="container header-content">
+                <div class="logo">
+                    <i class="fas fa-search"></i>
+                    <h1>Gitam University</h1>
+                </div>
+                <div class="university-info">
+                    <h2>Lost & Found System</h2>
+                    <p>Report and Find Lost Items</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Login Page -->
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-logo">
+                    <div class="logo-image">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h1>Welcome</h1>
+                    <p>Login to access the system</p>
+                </div>
+                
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login to System
+                    </button>
+                </form>
+                
+                <div class="options">
+                    <button class="option-btn lost-btn" id="lostOption">
+                        <i class="fas fa-question-circle"></i> 
+                        <div class="btn-text">
+                            <div>Lost Items</div>
+                            <small>Report or search for lost items</small>
+                        </div>
+                    </button>
+                    <button class="option-btn found-btn" id="foundOption">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="btn-text">
+                            <div>Found Items</div>
+                            <small>Report found items (Staff only)</small>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="security-notice">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Found Items section is restricted to Gitam University staff with gitam email addresses.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container footer-content">
+                <p>&copy; Gitam University - Lost & Found System. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#"><i class="fas fa-envelope"></i> Contact Support</a>
+                    <a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                    <a href="#"><i class="fas fa-info-circle"></i> About System</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Lost Items Page -->
+    <div class="page" id="lostPage">
+        <header class="page-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <i class="fas fa-question-circle"></i>
+                    <h1>Lost Items</h1>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span id="userEmailDisplay">user@example.com</span>
+                    </div>
+                    <button class="back-btn" id="backToMainFromLost">
+                        <i class="fas fa-arrow-left"></i> Back to Main
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container page-content">
+            <h2 class="page-title">Report and Search for Lost Items</h2>
+            
+            <div class="items-grid">
+                <div class="item-card">
+                    <div class="item-header">
+                        <div class="item-name">Black Laptop</div>
+                        <div class="item-category">Electronics</div>
+                    </div>
+                    <div class="item-details">
+                        <p><strong>Lost Location:</strong> Library - 2nd Floor</p>
+                        <p><strong>Date Lost:</strong> Oct 15, 2023</p>
+                        <p><strong>Description:</strong> Dell XPS 13, black color with Gitam sticker</p>
+                        <p><strong>Contact:</strong> john.doe@student.gitam.edu</p>
+                    </div>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-header">
+                        <div class="item-name">Calculus Textbook</div>
+                        <div class="item-category">Books</div>
+                    </div>
+                    <div class="item-details">
+                        <p><strong>Lost Location:</strong> Math Building - Room 204</p>
+                        <p><strong>Date Lost:</strong> Oct 14, 2023</p>
+                        <p><strong>Description:</strong> Calculus: Early Transcendentals, 8th Edition</p>
+                        <p><strong>Contact:</strong> sarah.wilson@student.gitam.edu</p>
+                    </div>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-header">
+                        <div class="item-name">Water Bottle</div>
+                        <div class="item-category">Accessories</div>
+                    </div>
+                    <div class="item-details">
+                        <p><strong>Lost Location:</strong> Yoga Center</p>
+                        <p><strong>Date Lost:</strong> Oct 16, 2023</p>
+                        <p><strong>Description:</strong> Blue stainless steel, 1 liter capacity</p>
+                        <p><strong>Contact:</strong> rohan.kumar@student.gitam.edu</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-form">
+                <h3 style="margin-bottom: 20px; color: var(--dark);">Report Lost Item</h3>
+                <form id="lostItemForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lostItemName">Item Name</label>
+                            <input type="text" id="lostItemName" class="form-control" placeholder="Enter item name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lostItemCategory">Category</label>
+                            <select id="lostItemCategory" class="form-control" required>
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Books">Books & Notes</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="ID Cards">ID Cards</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lostLocation">Location Lost</label>
+                            <input type="text" id="lostLocation" class="form-control" placeholder="Where did you lose this item?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lostDate">Date Lost</label>
+                            <input type="date" id="lostDate" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lostDescription">Description</label>
+                        <textarea id="lostDescription" class="form-control" rows="3" placeholder="Describe the item in detail..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactInfo">Your Contact Information</label>
+                        <input type="text" id="contactInfo" class="form-control" placeholder="Email or phone number" required>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Report Lost Item
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Found Items Page -->
+    <div class="page" id="foundPage">
+        <header class="page-header found-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <i class="fas fa-check-circle"></i>
+                    <h1>Found Items</h1>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span id="staffEmailDisplay">staff@gitam.edu</span>
+                    </div>
+                    <button class="back-btn" id="backToMainFromFound">
+                        <i class="fas fa-arrow-left"></i> Back to Main
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container page-content">
+            <h2 class="page-title">Found Items Management</h2>
+            
+            <div class="items-grid">
+                <div class="item-card found-item">
+                    <div class="item-header">
+                        <div class="item-name">Black Laptop</div>
+                        <div class="item-category found-category">Electronics</div>
+                    </div>
+                    <div class="item-details">
+                        <p><strong>Found Location:</strong> Library - 2nd Floor</p>
+                        <p><strong>Date Found:</strong> Oct 15, 2023</p>
+                        <p><strong>Description:</strong> Dell XPS 13, black color with Gitam sticker</p>
+                        <p><strong>Contact:</strong> security@gitam.edu</p>
+                    </div>
+                </div>
+                
+                <div class="item-card found-item">
+                    <div class="item-header">
+                        <div class="item-name">Student ID Card</div>
+                        <div class="item-category found-category">ID Cards</div>
+                    </div>
+                    <div class="item-details">
+                        <p><strong>Found Location:</strong> Main Building Entrance</p>
+                        <p><strong>Date Found:</strong> Oct 16, 2023</p>
+                        <p><strong>Description:</strong> Gitam University ID - Priya Sharma</p>
+                        <p><strong>Contact:</strong> security@gitam.edu</p>
+                    </div>
+                </div>
+                
+                <div class="item-card found-item">
+                    <div class="item-header">
+                        <div class="item-name">Water Bottle</div>
+                        <div class="item-category found-category">Accessories</div>
+                    </div>
+                    <div class="item-details">
+                        <p><strong>Found Location:</strong> Yoga Center</p>
+                        <p><strong>Date Found:</strong> Oct 17, 2023</p>
+                        <p><strong>Description:</strong> Blue stainless steel, 1 liter</p>
+                        <p><strong>Contact:</strong> security@gitam.edu</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-form">
+                <h3 style="margin-bottom: 20px; color: var(--dark);">Report New Found Item</h3>
+                <form id="foundItemForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="foundItemName">Item Name</label>
+                            <input type="text" id="foundItemName" class="form-control" placeholder="Enter item name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="foundItemCategory">Category</label>
+                            <select id="foundItemCategory" class="form-control" required>
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Books">Books & Notes</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="ID Cards">ID Cards</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="foundLocation">Location Found</label>
+                            <input type="text" id="foundLocation" class="form-control" placeholder="Where did you find this item?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="foundDate">Date Found</label>
+                            <input type="date" id="foundDate" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="foundDescription">Description</label>
+                        <textarea id="foundDescription" class="form-control" rows="3" placeholder="Describe the item in detail..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="finderContact">Your Contact Information</label>
+                        <input type="text" id="finderContact" class="form-control" placeholder="Email or phone number" required>
+                    </div>
+                    <button type="submit" class="submit-btn found-submit">
+                        <i class="fas fa-paper-plane"></i> Report Found Item
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Messages -->
+    <div class="modal" id="messageModal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modalIcon">
+                <i class="fas fa-check-circle success"></i>
+            </div>
+            <h3 id="modalTitle">Success</h3>
+            <p id="modalMessage">Operation completed successfully.</p>
+            <button class="modal-btn" id="modalButton">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const lostPage = document.getElementById('lostPage');
+        const foundPage = document.getElementById('foundPage');
+        const loginForm = document.getElementById('loginForm');
+        const lostOption = document.getElementById('lostOption');
+        const foundOption = document.getElementById('foundOption');
+        const backToMainFromLost = document.getElementById('backToMainFromLost');
+        const backToMainFromFound = document.getElementById('backToMainFromFound');
+        const userEmailDisplay = document.getElementById('userEmailDisplay');
+        const staffEmailDisplay = document.getElementById('staffEmailDisplay');
+        const messageModal = document.getElementById('messageModal');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalButton = document.getElementById('modalButton');
+        const lostItemForm = document.getElementById('lostItemForm');
+        const foundItemForm = document.getElementById('foundItemForm');
+
+        // Current user data
+        let currentUser = null;
+
+        // Event Listeners
+        loginForm.addEventListener('submit', handleLogin);
+        lostOption.addEventListener('click', () => {
+            if (currentUser) {
+                showPage('lostPage');
+            } else {
+                showMessage('error', 'Login Required', 'Please login first to access Lost Items.');
+            }
+        });
+        foundOption.addEventListener('click', () => {
+            if (currentUser) {
+                if (currentUser.email.toLowerCase().endsWith('@gitam.in')) {
+                    showPage('foundPage');
+                } else {
+                    showMessage('error', 'Access Denied', 
+                        'Found Items access is restricted to Gitam University staff only.');
+                }
+            } else {
+                showMessage('error', 'Login Required', 'Please login first to access Found Items.');
+            }
+        });
+
+        backToMainFromLost.addEventListener('click', () => showPage('loginPage'));
+        backToMainFromFound.addEventListener('click', () => showPage('loginPage'));
+        modalButton.addEventListener('click', () => {
+            messageModal.style.display = 'none';
+        });
+        lostItemForm.addEventListener('submit', handleLostItemSubmit);
+        foundItemForm.addEventListener('submit', handleFoundItemSubmit);
+
+        // Functions
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                currentUser = { email, password };
+                userEmailDisplay.textContent = email;
+                staffEmailDisplay.textContent = email;
+                
+                if (email.toLowerCase().endsWith('@gitam.in')) {
+                    showMessage('success', 'Login Successful', 'Welcome Gitam University staff! You have access to both Lost and Found items.');
+                } else {
+                    showMessage('success', 'Login Successful', 'Welcome! You can access Lost Items. Found Items are restricted to Gitam staff.');
+                }
+            } else {
+                showMessage('error', 'Login Failed', 'Please enter both email and password.');
+            }
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            loginPage.classList.remove('active');
+            lostPage.classList.remove('active');
+            foundPage.classList.remove('active');
+            
+            // Show the requested page
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function handleLostItemSubmit(e) {
+            e.preventDefault();
+            showMessage('success', 'Item Reported', 'Your lost item has been reported successfully. We will notify you if it is found.');
+            lostItemForm.reset();
+        }
+
+        function handleFoundItemSubmit(e) {
+            e.preventDefault();
+            showMessage('success', 'Item Reported', 'Thank you for reporting the found item. It has been added to the database.');
+            foundItemForm.reset();
+        }
+
+        function showMessage(type, title, message) {
+            // Set modal content based on type
+            if (type === 'success') {
+                modalIcon.innerHTML = '<i class="fas fa-check-circle success"></i>';
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
+            } else {
+                modalIcon.innerHTML = '<i class="fas fa-exclamation-circle error"></i>';
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
+            }
+            
+            // Show the modal
+            messageModal.style.display = 'flex';
+        }
+
+        // Set today's date as default for date fields
+        document.getElementById('lostDate').valueAsDate = new Date();
+        document.getElementById('foundDate').valueAsDate = new Date();
+    </script>
+</body>
+</html>
